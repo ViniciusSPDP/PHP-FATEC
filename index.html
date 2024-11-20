@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #7c3aed;
+            --secondary-color: #5b21b6;
+            --bg-gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --text-color: #1f2937;
+            --footer-bg: #1f2937;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .hero-section {
+            background: var(--bg-gradient);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/api/placeholder/1920/400') center/cover;
+            opacity: 0.1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            border: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.1);
+        }
+        
+        .card-body {
+            padding: 2rem;
+        }
+        
+        .card-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--bg-gradient);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+        }
+        
+        .modal-content {
+            border-radius: 1rem;
+            border: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .modal-header {
+            background: var(--bg-gradient);
+            color: white;
+            border-bottom: none;
+            border-radius: 1rem 1rem 0 0;
+            padding: 1.5rem;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .modal-body ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .modal-body li {
+            margin-bottom: 1rem;
+        }
+        
+        .modal-body a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: block;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background: #f1f5f9;
+            transition: all 0.2s;
+        }
+        
+        .modal-body a:hover {
+            background: #e2e8f0;
+            color: var(--secondary-color);
+        }
+        
+        .projects-section {
+            padding: 4rem 0;
+            flex: 1;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: var(--footer-bg);
+            color: #f8fafc;
+            padding: 3rem 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: #f8fafc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: #f8fafc;
+            font-size: 1.5rem;
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-section {
+                padding: 4rem 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero-section text-white text-center">
+        <div class="hero-content">
+            <h1 class="hero-title">Portfólio de Projetos</h1>
+            <p class="hero-subtitle">Confira os projetos desenvolvidos nas aulas práticas!</p>
+        </div>
+    </header>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <div class="container">
+            <div class="row">
+                <!-- Gerando cards dinamicamente -->
+                <script>
+                    const aulas = [
+                        { numero: "02", projetos: ["aula02/index.php"] },
+                        { numero: "03", projetos: ["aula03/aritmeticos.php", "aula03/aspas.php", "aula03/atribuicao.php", "aula03/comentarios.php", "aula03/concatenar.php", "aula03/constante.php", "aula03/get.php", "aula03/logico.php", "aula03/relacionais.php", "aula03/tipo.php", "aula03/variaveis.php"] },
+                        { numero: "04", projetos: ["aula04/form1.html", "aula04/form2.html", "aula04/idade.php", "aula04/valor.php"] },
+                        { numero: "05", projetos: ["aula05/if_else.html", "aula05/if_else.php", "aula05/media.html","aula05/media.php"] },
+                        { numero: "06", projetos: ["aula06/calculadora.html", "aula06/calculadora.php", "aula06/switch.html", "aula06/switch.php"] },
+                        { numero: "07", projetos: ["aula07/contador_mostra.php", "aula07/contador.php", "aula07/while_dinamico_mostra.php", "aula07/while_dinamico.php", "aula07/while.php" ] },
+                        { numero: "08", projetos: ["aula08/tabuada.php","aula08/tabuada_mostra.php", "aula08/dowhile.php"] },
+                        { numero: "09", projetos: ["aula09/for.php", "aula09/primo.html", "aula09/primo.php"] },
+                        { numero: "10", projetos: ["aula10/funcoes.php", "aula10/funcao_valor.php", "aula10/funcao_sem_retorno.php", "aula10/funcao_sem_par.php", "aula10/funcao_ref.php", "aula10/funcao_multiplos.php", "aula10/funcao_mostra.php", "aula10/funcao_com_retorno.php", "aula10/funcao_com_par.php"] },
+                        { numero: "11", projetos: ["aula11/exe01_mostra.php", "aula11/exe01.php", "aula11/exe02_mostra.php","aula11/exe02.php", "aula11/vetor1.php", "aula11/vetor2.php", "aula11/vetor3.php", "aula11/vetor4.php", "aula11/vetor5.php","aula11/vetor6.php"] },
+                        { numero: "13", projetos: ["aula13/index.php", "aula13/Veiculo.php"] },
+                        { numero: "14", projetos: ["aula14/index.php", "aula14/Veiculo.php"] },
+                        { numero: "15", projetos: ["aula15/index.php", "aula15/Veiculo.php"] },
+                        { numero: "16", projetos: ["aula16/CartaoTravel.php", "aula16/mostrarCartao.php"] },
+                    ];
+
+                    aulas.forEach((aula) => {
+                        document.write(`
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">Aula ${aula.numero}</h5>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAula${aula.numero}">
+                                            Ver Projetos
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    });
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    © 2024 Portfólio de Projetos. Todos os direitos reservados.
+                </div>
+                <div class="footer-links">
+                    <a href="#">Início</a>
+                    <a href="#">Sobre</a>
+                    <a href="#">Contato</a>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/ViniciusSPDP"><i class="fab fa-github"></i></a>
+                    <a href="https://br.linkedin.com/in/vinicius-saraiva-55255a199?trk=people-guest_people_search-card"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/_s4r41va/profilecard/?igsh=aW5tZDJ1c2Exb2g4"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modais -->
+    <script>
+        aulas.forEach((aula) => {
+            document.write(`
+                <div class="modal fade" id="modalAula${aula.numero}" tabindex="-1" aria-labelledby="modalAula${aula.numero}Label" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalAula${aula.numero}Label">Projetos da Aula ${aula.numero}</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    ${aula.projetos.map(projeto => `<li><a href="${projeto}" target="_blank">${projeto}</a></li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
