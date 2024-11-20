@@ -16,3 +16,5 @@ Este projeto é um portfólio interativo que apresenta os projetos desenvolvidos
 - **Bootstrap 5**: Framework CSS para responsividade e componentes estilizados.
 - **JavaScript**: Geração dinâmica de conteúdo (cards e modais).
 - **PHP**: Base dos projetos apresentados.
+
+##Espero que gostem me siga no Instagram e no LinkedIn
